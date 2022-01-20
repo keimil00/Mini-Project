@@ -16,6 +16,5 @@ int main() {
         }
     }
     std::cout << testObject.Compute(test_solution);
-    std::cout<< "Hello";
     return 0;
 }
