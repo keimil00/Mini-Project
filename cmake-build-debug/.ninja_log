@@ -1,0 +1,7 @@
+# ninja log v5
+1	122	6643842408713515	build.ninja	694c318677b6202c
+737	947	6639926241218816	untitled8.exe	8c611a6b5f7979cd
+18	252	6639949061111444	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	f5b2ea4150c9dca4
+1	522	6639949063802065	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+10	606	6639949064652247	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+606	1085	6639949069311441	Mini_Project.exe	1bee6eb1362341c8
