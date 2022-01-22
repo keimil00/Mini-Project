@@ -16,8 +16,8 @@ class CGAIndividual {
 public:
     CGAIndividual(int size, T problem);
     CGAIndividual(std::vector<bool> genes, T problem);
-    CGAIndividual* Crossover(CGAIndividual *mate);
-    CGAIndividual* Mutation();
+    CGAIndividual* Crossover(CGAIndividual *mate, double probability_of_crossing);
+    void Mutation(double probability_of_mutation);
     double Fitness();
     friend CGAIndividual* pickParent(std::vector<CGAIndividual*> population);
 private:
@@ -48,7 +48,11 @@ CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T problem) {
     Fitness();
 }
 template<typename T>
-CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate) {
+CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate, double probability_of_crossing) {
+    if(random(0,1) > probability_of_crossing){
+        return *this;
+    }
+
     int len = genotype.size();
     std::vector<bool> child_genotype(len);
     for (int i = 0; i < len; ++i) {
@@ -62,8 +66,12 @@ CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate) {
     return new CGAIndividual(child_genotype);
 }
 template<typename T>
-CGAIndividual<T>* CGAIndividual<T>::Mutation() {
-
+void CGAIndividual<T>::Mutation(double probability_of_mutation) {
+    for (int i = 0; i < genotype_length; ++i) {
+        if(random(0, 1) < probability_of_mutation){
+            genotype[i] = !genotype[i];
+        }
+    }
 }
 
 
