@@ -65,7 +65,7 @@ void CGAOptimizer<T>::addIndividual(CGAIndividual<T>* new_individual) {
     int min_index;
     for (int i = 0; i < size_of_population; ++i) {
         if(individuals[i]->Fitness() < min){
-            min = individuals[i]->fitness; //???
+            min = individuals[i]->fitness; //This may be an error
             min_index = i;
         }
     }
