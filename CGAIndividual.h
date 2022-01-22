@@ -27,24 +27,25 @@ private:
     double fitness;
     int tournament_size = 2;
     int random(int min, int max);
+    void assure_correct_implementation(T problem);
 };
 
 
 template<typename T>
-CGAIndividual<T>::CGAIndividual(int size, T problem) {
-    static_assert(problem.Compute(), "Class of the problem need to implement method Compute() in order to pass number of variables");
+CGAIndividual<T>::CGAIndividual(int size, T new_problem) {
+    assure_correct_implementation(new_problem);
     genotype_length = size;
     for (int i = 0; i < genotype_length; ++i) {
         i = random(0,1);
     }
-    this->problem = problem;
+    problem = new_problem;
 }
 
 template<typename T>
-CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T problem) {
-    static_assert(problem.Compute(), "Class of the problem need to implement method Compute() in order to pass number of variables");
+CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T new_problem) {
+    assure_correct_implementation(new_problem);
     genotype = std::move(genes);
-    this->problem = problem;
+    problem = new_problem;
     Fitness();
 }
 template<typename T>
@@ -107,6 +108,11 @@ double CGAIndividual<T>::Fitness() {
     return fitness;
 }
 
+template<typename T>
+void CGAIndividual<T>::assure_correct_implementation(T new_problem) {
+    static_assert(new_problem.Compute(), "Class of the problem need to implement method Compute() in order to pass number of variables");
+    static_assert(new_problem.Load(), "Class of the problem need to implement method Load() in order to load data");
+}
 
 
 #endif //UNTITLED8_CGAINDIVIDUAL_H
