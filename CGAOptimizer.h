@@ -12,23 +12,35 @@
 template <typename T>
 class CGAOptimizer {
 public:
-    CGAOptimizer(int size_of_population, double probability_of_crossing, double probability_of_mutation);
+    CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, T *newProblem);
+
+    virtual ~CGAOptimizer();
+
     void Initialize();
     void RunIteration();
-    void addIndividual(CGAIndividual<T>* new_individual);
+    //void addIndividual(CGAIndividual<T>* new_individual);
+    double averageFitness();
 private:
     int size_of_population;
     double probability_of_crossing;
     double probability_of_mutation;
-    T problem;
+    T *problem;
     std::vector<CGAIndividual<T>*> individuals;
 };
 
 template <typename T>
-CGAOptimizer<T>::CGAOptimizer(int size_of_population, double probability_of_crossing, double probability_of_mutation) {
-    this->size_of_population = size_of_population;
-    this->probability_of_crossing = probability_of_crossing;
-    this->probability_of_mutation = probability_of_mutation;
+CGAOptimizer<T>::CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, T *newProblem) {
+    size_of_population = newSize_of_population;
+    probability_of_crossing = newProbability_of_crossing;
+    probability_of_mutation = newProbability_of_mutation;
+    problem = newProblem;
+}
+
+template<typename T>
+CGAOptimizer<T>::~CGAOptimizer() {
+//    for (int i = 0; i < individuals.size(); ++i) {
+//        delete individuals[i];
+//    }
 }
 
 template<typename T>
@@ -46,34 +58,53 @@ void CGAOptimizer<T>::RunIteration() {
     CGAIndividual<T> *parent1, *parent2, *child1, *child2;
 
     while(new_population.size() < individuals.size()){
-        parent1 = pickParent(&individuals);
-        parent2 = pickParent(&individuals);
+        parent1 = pickParent(individuals);
+        parent2 = pickParent(individuals);
         child1 = parent1->Crossover(parent2, probability_of_crossing);
         child2 = parent2->Crossover(parent1, probability_of_crossing);
         child1->Mutation(probability_of_mutation);
         child2->Mutation(probability_of_mutation);
-        addIndividual(child1);
-        addIndividual(child2);
+//        addIndividual(child1);
+//        addIndividual(child2);
+        new_population.push_back(child1);
+        new_population.push_back(child2);
     }
+    std::cout<<"\n\n";
 
-    for (int i = 0; i < individuals.size(); ++i) {
-        std::cout<<individuals[i]->Fitness()<<", ";
-    }
+    std::cout<<averageFitness();
+    std::cout<<"\n\n";
+
+    individuals = new_population;
+
+    std::cout<<averageFitness();
 
 }
 
 template<typename T>
-void CGAOptimizer<T>::addIndividual(CGAIndividual<T>* new_individual) {
-    double min = 1;
-    int min_index;
-    for (int i = 0; i < size_of_population; ++i) {
-        if(individuals[i]->Fitness() < min){
-            min = individuals[i]->Fitness();
-            min_index = i;
-        }
+double CGAOptimizer<T>::averageFitness() {
+    double average = 0;
+    for (int i = 0; i < individuals.size(); ++i) {
+        average += individuals[i]->Fitness();
     }
-    individuals[min_index] = new_individual;
+    average /= size_of_population;
+    return average;
 }
+
+//template<typename T>
+//void CGAOptimizer<T>::addIndividual(CGAIndividual<T>* new_individual) {
+//    double min = 1;
+//    int min_index;
+//    for (int i = 0; i < size_of_population; ++i) {
+//        if(individuals[i]->Fitness() < min){
+//            min = individuals[i]->Fitness();
+//            min_index = i;
+//        }
+//    }
+//    delete individuals[min_index];
+//    individuals[min_index] = new_individual;
+//}
+
+
 
 
 #endif //UNTITLED8_CGAOPTIMIZER_H

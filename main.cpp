@@ -4,11 +4,11 @@
 
 
 int main() {
-    CMax3SatProblem testObject;
+    CMax3SatProblem *testObject = new CMax3SatProblem();
     std::string file_address = "C://Users//keimi//CLionProjects//Mini_Project//m3s_50_0.txt";
-    testObject.Load(file_address);
-    testObject.print_clauses();
-    testObject.print_variables();
+    testObject->Load(file_address);
+    testObject->print_clauses();
+    testObject->print_variables();
     std::vector<bool> test_solution;
     for (int i = 0; i < 50; ++i) {
         if(i%2 == 0){
@@ -17,11 +17,16 @@ int main() {
             test_solution.push_back(false);
         }
     }
-    std::cout << testObject.Compute(test_solution);
+    std::cout << testObject->Compute(test_solution);
 
-    CGAOptimizer<CMax3SatProblem*> *test_optimizer = new CGAOptimizer<CMax3SatProblem*>(100, 0.3, 0.1);
+    auto *test_optimizer = new CGAOptimizer<CMax3SatProblem>(100, 0.3, 0.1, testObject);
     test_optimizer->Initialize();
-    test_optimizer->RunIteration();
+    for (int i = 0; i < 100; ++i) {
+        test_optimizer->RunIteration();
+    }
+
+    delete testObject;
+    delete test_optimizer;
 
     return 0;
 }

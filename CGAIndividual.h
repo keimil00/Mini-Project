@@ -14,20 +14,20 @@
 
 template <typename T> class CGAIndividual;
 template <typename T> class CGAOptimizer;
-template <typename T> CGAIndividual<T>* pickParent(std::vector<CGAIndividual<T>*> *population);
+template <typename T> CGAIndividual<T>* pickParent(std::vector<CGAIndividual<T>*> const &population);
 
 template <typename T>
 class CGAIndividual {
 public:
-    CGAIndividual(int size, T problem);
-    CGAIndividual(std::vector<bool> genes, T problem);
+    CGAIndividual(int size, T *problem);
+    CGAIndividual(std::vector<bool> genes, T *problem);
     static int random(int min, int max);
-    CGAIndividual* Crossover(CGAIndividual *mate, double probability_of_crossing);
+    CGAIndividual* Crossover(CGAIndividual const *mate, double probability_of_crossing);
     void Mutation(double probability_of_mutation);
     double Fitness();
-    friend CGAIndividual* pickParent<T>(std::vector<CGAIndividual<T>*> *population);
+    friend CGAIndividual* pickParent<T>(std::vector<CGAIndividual<T>*> const &population);
 private:
-    T problem;
+    T *problem;
     int genotype_length;
     std::vector<bool> genotype;
     double fitness;
@@ -35,21 +35,21 @@ private:
 
 
 template<typename T>
-CGAIndividual<T>::CGAIndividual(int size, T new_problem) {
+CGAIndividual<T>::CGAIndividual(int size, T *new_problem) {
     genotype_length = size;
+    genotype = std::vector<bool>(genotype_length);
     for (int i = 0; i < genotype_length; ++i) {
-        i = random(0,1);
+        genotype[i] = random(0,1);
     }
     problem = new_problem;
 }
 
 template<typename T>
-CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T new_problem) {
+CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T *new_problem) {
     genotype = std::move(genes);
     problem = new_problem;
     Fitness();
 }
-
 
 template<typename T>
 int CGAIndividual<T>::random(int min, int max) {
@@ -60,10 +60,10 @@ int CGAIndividual<T>::random(int min, int max) {
         first = false;
     }
     return min + rand() % (( max + 1 ) - min);
-}
+} //TODO correct random selection;
 
 template<typename T>
-CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate, double probability_of_crossing) {
+CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual<T> const *mate, double probability_of_crossing) {
     if(random(0,1) > probability_of_crossing){
         return this;
     }
@@ -78,7 +78,7 @@ CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate, double probab
         else if(chances >= 0.5)
             child_genotype[i] = mate->genotype[i];
     }
-    return (new CGAIndividual(child_genotype, problem));
+    return (new CGAIndividual<T>(child_genotype, problem));
 }
 
 template<typename T>
@@ -97,19 +97,20 @@ double CGAIndividual<T>::Fitness() {
 }
 
 template<typename T>
-CGAIndividual<T> *pickParent(std::vector<CGAIndividual<T> *> *population) {
-    std::vector<CGAIndividual<T> *> candidates;
+CGAIndividual<T> *pickParent(std::vector<CGAIndividual<T> *> const &population) {
     double best_result = 0;
     int best_candidate_index;
     for (int i = 0; i < TOURNAMENT_SIZE; ++i) {
-        int r = CGAIndividual<T>::random(0, (int) population->size());
-        candidates.push_back((*population)[r]);
-        if(candidates[i]->Fitness() > best_result){
-            best_result = candidates[i]->fitness;
-            best_candidate_index = i;
+        int r = CGAIndividual<T>::random(0, population.size() - 1);
+        if(population[r]->Fitness() > best_result){
+            best_result = population[r]->fitness;
+            best_candidate_index = r;
         }
     }
-    return candidates[best_candidate_index];}
+    return population[best_candidate_index];
+}
+
+
 
 
 #endif //UNTITLED8_CGAINDIVIDUAL_H
