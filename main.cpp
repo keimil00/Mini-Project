@@ -1,5 +1,7 @@
 #include <iostream>
 #include "CMax3SatProblem.h"
+#include "CGAOptimizer.h"
+
 
 int main() {
     CMax3SatProblem testObject;
@@ -16,5 +18,10 @@ int main() {
         }
     }
     std::cout << testObject.Compute(test_solution);
+
+    CGAOptimizer<CMax3SatProblem*> *test_optimizer = new CGAOptimizer<CMax3SatProblem*>(100, 0.3, 0.1);
+    test_optimizer->Initialize();
+    test_optimizer->RunIteration();
+
     return 0;
 }
