@@ -14,14 +14,15 @@
 #include <map>
 #include <cstdlib>
 #include <fstream>
+#include "Problem.h"
 
-class CMax3SatProblem {
+class CMax3SatProblem: public virtual Problem {
 public:
-    void Load(const std::string& address);
-    double Compute(std::vector<bool> solution);
+    void Load(const std::string& address) override;
+    double Compute(std::vector<bool> solution) override;
     void print_clauses();
     void print_variables();
-    int size();
+    int size() override;
 private:
     std::vector<std::tuple<int, int, int>> clauses;
     std::vector<int> variables;
