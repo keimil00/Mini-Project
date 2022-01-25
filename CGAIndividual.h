@@ -8,32 +8,34 @@
 #include <utility>
 #include <ctime>
 #include <vector>
+#include "CGAOptimizer.h"
 
+#define     TOURNAMENT_SIZE 2
 
+template <typename T> class CGAIndividual;
+template <typename T> class CGAOptimizer;
+template <typename T> CGAIndividual<T>* pickParent(std::vector<CGAIndividual<T>*> *population);
 
 template <typename T>
 class CGAIndividual {
 public:
     CGAIndividual(int size, T problem);
     CGAIndividual(std::vector<bool> genes, T problem);
+    static int random(int min, int max);
     CGAIndividual* Crossover(CGAIndividual *mate, double probability_of_crossing);
     void Mutation(double probability_of_mutation);
     double Fitness();
-    friend CGAIndividual* pickParent(std::vector<CGAIndividual*> population);
+    friend CGAIndividual* pickParent<T>(std::vector<CGAIndividual<T>*> *population);
 private:
     T problem;
     int genotype_length;
     std::vector<bool> genotype;
     double fitness;
-    int tournament_size = 2;
-    int random(int min, int max);
-    void assure_correct_implementation(T problem);
 };
 
 
 template<typename T>
 CGAIndividual<T>::CGAIndividual(int size, T new_problem) {
-    assure_correct_implementation(new_problem);
     genotype_length = size;
     for (int i = 0; i < genotype_length; ++i) {
         i = random(0,1);
@@ -43,29 +45,42 @@ CGAIndividual<T>::CGAIndividual(int size, T new_problem) {
 
 template<typename T>
 CGAIndividual<T>::CGAIndividual(std::vector<bool> genes, T new_problem) {
-    assure_correct_implementation(new_problem);
     genotype = std::move(genes);
     problem = new_problem;
     Fitness();
 }
+
+
+template<typename T>
+int CGAIndividual<T>::random(int min, int max) {
+    static bool first = true;
+    if (first)
+    {
+        srand( time(nullptr) ); //seeding for the first time only!
+        first = false;
+    }
+    return min + rand() % (( max + 1 ) - min);
+}
+
 template<typename T>
 CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual *mate, double probability_of_crossing) {
     if(random(0,1) > probability_of_crossing){
-        return *this;
+        return this;
     }
 
     int len = genotype.size();
     std::vector<bool> child_genotype(len);
     for (int i = 0; i < len; ++i) {
-        float chances = random(0, 100)/100;
+        float chances = ((float)random(0, 100))/100.0;
 
         if(chances < 0.5)
             child_genotype[i] = genotype[i];
         else if(chances >= 0.5)
             child_genotype[i] = mate->genotype[i];
     }
-    return new CGAIndividual(child_genotype);
+    return (new CGAIndividual(child_genotype, problem));
 }
+
 template<typename T>
 void CGAIndividual<T>::Mutation(double probability_of_mutation) {
     for (int i = 0; i < genotype_length; ++i) {
@@ -75,44 +90,26 @@ void CGAIndividual<T>::Mutation(double probability_of_mutation) {
     }
 }
 
-
-template<typename T>
-int CGAIndividual<T>::random(int min, int max) {
-    static bool first = true;
-    if (first)
-    {
-        srand( time(NULL) ); //seeding for the first time only!
-        first = false;
-    }
-    return min + rand() % (( max + 1 ) - min);
-}
-
-template<typename T>
-CGAIndividual<T> *pickParent(std::vector<CGAIndividual<T> *> population) {
-    std::vector<CGAIndividual<T> *> candidates;
-    double best_result = 0;
-    int best_candidate_index;
-    for (int i = 0; i < CGAIndividual<T>::tournament_size; ++i) {
-        candidates.push_back(population[random(0, population.size())]);
-        if(candidates[i]->Fitness() > best_result){
-            best_result = candidates[i].fitness;
-            best_candidate_index = i;
-        }
-    }
-    return candidates[best_candidate_index];
-}
-
 template<typename T>
 double CGAIndividual<T>::Fitness() {
-    fitness = problem.Compute(genotype);
+    fitness = problem->Compute(genotype);
     return fitness;
 }
 
 template<typename T>
-void CGAIndividual<T>::assure_correct_implementation(T new_problem) {
-    static_assert(new_problem.Compute(), "Class of the problem need to implement method Compute() in order to pass number of variables");
-    static_assert(new_problem.Load(), "Class of the problem need to implement method Load() in order to load data");
-}
+CGAIndividual<T> *pickParent(std::vector<CGAIndividual<T> *> *population) {
+    std::vector<CGAIndividual<T> *> candidates;
+    double best_result = 0;
+    int best_candidate_index;
+    for (int i = 0; i < TOURNAMENT_SIZE; ++i) {
+        int r = CGAIndividual<T>::random(0, (int) population->size());
+        candidates.push_back((*population)[r]);
+        if(candidates[i]->Fitness() > best_result){
+            best_result = candidates[i]->fitness;
+            best_candidate_index = i;
+        }
+    }
+    return candidates[best_candidate_index];}
 
 
 #endif //UNTITLED8_CGAINDIVIDUAL_H
