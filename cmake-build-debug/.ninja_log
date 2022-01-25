@@ -1,7 +1,16 @@
 # ninja log v5
-1	122	6643842408713515	build.ninja	694c318677b6202c
+1	122	6647667004758263	build.ninja	694c318677b6202c
 737	947	6639926241218816	untitled8.exe	8c611a6b5f7979cd
 18	252	6639949061111444	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	f5b2ea4150c9dca4
-1	522	6639949063802065	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
-10	606	6639949064652247	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+1	613	6645696067727791	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+0	1219	6645581084274167	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
 606	1085	6639949069311441	Mini_Project.exe	1bee6eb1362341c8
+0	999	6647672088513710	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+0	645	6648155965492845	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+10	835	6648156397269508	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+0	846	6648156397379545	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+1	810	6648156571330796	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+12	823	6648156571480848	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+0	664	6648156663033860	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+11	737	6648156663774082	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	1b58dee2914e1fc0
+737	1051	6648156666250486	Mini_Project.exe	b76e8734a1f6935a
