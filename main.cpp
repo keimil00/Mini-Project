@@ -5,7 +5,7 @@
 
 int main() {
     CMax3SatProblem *testObject = new CMax3SatProblem();
-    std::string file_address = "C://Users//keimi//CLionProjects//Mini_Project//m3s_50_0.txt";
+    std::string file_address = "C://Users//keimi//CLionProjects//Mini_Project//m3s_350_45.txt";
     testObject->Load(file_address);
     testObject->print_clauses();
     testObject->print_variables();
@@ -19,7 +19,7 @@ int main() {
     }
     std::cout << testObject->Compute(test_solution);
 
-    auto *test_optimizer = new CGAOptimizer<CMax3SatProblem>(100, 0.3, 0.1, testObject);
+    auto *test_optimizer = new CGAOptimizer<CMax3SatProblem>(1000, 0.75, 0.2, testObject);
     test_optimizer->Initialize();
     for (int i = 0; i < 100; ++i) {
         test_optimizer->RunIteration();

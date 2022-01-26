@@ -10,7 +10,7 @@
 #include <vector>
 #include "CGAOptimizer.h"
 
-#define     TOURNAMENT_SIZE 2
+#define     TOURNAMENT_SIZE 10
 
 template <typename T> class CGAIndividual;
 template <typename T> class CGAOptimizer;
@@ -60,7 +60,7 @@ int CGAIndividual<T>::random(int min, int max) {
         first = false;
     }
     return min + rand() % (( max + 1 ) - min);
-} //TODO correct random selection;
+}
 
 template<typename T>
 CGAIndividual<T>* CGAIndividual<T>::Crossover(CGAIndividual<T> const *mate, double probability_of_crossing) {
