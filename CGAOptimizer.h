@@ -15,7 +15,7 @@ class CGAIndividual;
 
 class CGAOptimizer {
 public:
-    CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, Problem *newProblem);
+    CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, int newTournamentSize, Problem *newProblem);
     ~CGAOptimizer();
     void Initialize();
     void RunIteration();
@@ -25,6 +25,7 @@ private:
     int size_of_population;
     double probability_of_crossing;
     double probability_of_mutation;
+    int tournament_size;
     Problem *problem;
     std::vector<CGAIndividual*> individuals;
 };

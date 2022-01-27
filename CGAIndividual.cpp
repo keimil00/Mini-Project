@@ -61,10 +61,10 @@ double CGAIndividual::Fitness() {
     return fitness;
 }
 
-CGAIndividual *pickParent(std::vector<CGAIndividual *> const &population) {
+CGAIndividual *pickParent(std::vector<CGAIndividual *> const &population, int tournamentSize) {
 double best_result = 0;
 int best_candidate_index;
-for (int i = 0; i < TOURNAMENT_SIZE; ++i) {
+for (int i = 0; i < tournamentSize; ++i) {
 int r = CGAIndividual::random(0, population.size() - 1);
 if(population[r]->fitness > best_result){
 best_result = population[r]->fitness;
@@ -77,3 +77,5 @@ return population[best_candidate_index];
 double CGAIndividual::getFitnessValue() {
     return fitness;
 }
+
+

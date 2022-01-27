@@ -5,10 +5,11 @@
 #include "CGAOptimizer.h"
 
 
-CGAOptimizer::CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, Problem *newProblem) {
+CGAOptimizer::CGAOptimizer(int newSize_of_population, double newProbability_of_crossing, double newProbability_of_mutation, int newTournamentSize, Problem *newProblem) {
     size_of_population = newSize_of_population;
     probability_of_crossing = newProbability_of_crossing;
     probability_of_mutation = newProbability_of_mutation;
+    tournament_size = newTournamentSize;
     problem = newProblem;
 }
 
@@ -40,8 +41,8 @@ void CGAOptimizer::RunIteration() {
     while(new_population.size() < individuals.size()){
 
         auto startInside = std::chrono::high_resolution_clock::now();
-        parent1 = pickParent(individuals);
-        parent2 = pickParent(individuals);
+        parent1 = pickParent(individuals, tournament_size);
+        parent2 = pickParent(individuals, tournament_size);
         auto finishInside = std::chrono::high_resolution_clock::now();
         elapsed[0] += finishInside - startInside;
 

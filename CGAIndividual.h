@@ -12,7 +12,6 @@
 #include "Problem.h"
 
 
-#define     TOURNAMENT_SIZE 2
 
 class CGAIndividual;
 class CGAOptimizer;
@@ -28,7 +27,7 @@ public:
     void Mutation(double probability_of_mutation);
     double Fitness();
     double getFitnessValue();
-    friend CGAIndividual* pickParent(std::vector<CGAIndividual*> const &population);
+    friend CGAIndividual* pickParent(std::vector<CGAIndividual*> const &population, int tournamentSize);
 private:
     Problem *problem;
     int genotype_length;
