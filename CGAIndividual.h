@@ -26,7 +26,7 @@ public:
     CGAIndividual* Crossover(CGAIndividual const *mate, double probability_of_crossing);
     void Mutation(double probability_of_mutation);
     double Fitness();
-    double getFitnessValue();
+    double getFitnessValue() const;
     friend CGAIndividual* pickParent(std::vector<CGAIndividual*> const &population, int tournamentSize);
 private:
     Problem *problem;

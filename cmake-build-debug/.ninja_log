@@ -21,3 +21,7 @@
 12	873	6650087613096812	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	f5b2ea4150c9dca4
 0	873	6650087613086811	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
 874	1209	6650087616007504	Mini_Project.exe	78ef78fd3967d45a
+19	903	6650094268080048	CMakeFiles/Mini_Project.dir/CGAOptimizer.cpp.obj	7cff72b7a3015032
+1	905	6650094268080048	CMakeFiles/Mini_Project.dir/main.cpp.obj	52124ef379104041
+12	905	6650094268116230	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	f5b2ea4150c9dca4
+906	1156	6650094270227837	Mini_Project.exe	78ef78fd3967d45a

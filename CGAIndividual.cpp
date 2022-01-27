@@ -4,6 +4,8 @@
 
 #include "CGAIndividual.h"
 
+#include <utility>
+
 
 
 CGAIndividual::CGAIndividual(int size, Problem *new_problem) {
@@ -17,7 +19,7 @@ CGAIndividual::CGAIndividual(int size, Problem *new_problem) {
 }
 
 CGAIndividual::CGAIndividual(std::vector<bool> genes, Problem *new_problem) {
-    genotype = genes;
+    genotype = std::move(genes);
     problem = new_problem;
     Fitness();
 }
@@ -74,7 +76,7 @@ best_candidate_index = r;
 return population[best_candidate_index];
 }
 
-double CGAIndividual::getFitnessValue() {
+double CGAIndividual::getFitnessValue() const {
     return fitness;
 }
 
