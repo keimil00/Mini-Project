@@ -63,6 +63,20 @@ build CMakeFiles\Mini_Project.dir\CMax3SatProblem.cpp.obj: CXX_COMPILER__Mini_Pr
   TARGET_COMPILE_PDB = CMakeFiles\Mini_Project.dir\
   TARGET_PDB = Mini_Project.pdb
 
+build CMakeFiles\Mini_Project.dir\CGAOptimizer.cpp.obj: CXX_COMPILER__Mini_Project_Debug C$:\Users\keimi\CLionProjects\Mini_Project\CGAOptimizer.cpp || cmake_object_order_depends_target_Mini_Project
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++14
+  OBJECT_DIR = CMakeFiles\Mini_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Mini_Project.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Mini_Project.dir\
+  TARGET_PDB = Mini_Project.pdb
+
+build CMakeFiles\Mini_Project.dir\CGAIndividual.cpp.obj: CXX_COMPILER__Mini_Project_Debug C$:\Users\keimi\CLionProjects\Mini_Project\CGAIndividual.cpp || cmake_object_order_depends_target_Mini_Project
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++14
+  OBJECT_DIR = CMakeFiles\Mini_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Mini_Project.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Mini_Project.dir\
+  TARGET_PDB = Mini_Project.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Mini_Project
@@ -71,7 +85,7 @@ build CMakeFiles\Mini_Project.dir\CMax3SatProblem.cpp.obj: CXX_COMPILER__Mini_Pr
 #############################################
 # Link the executable Mini_Project.exe
 
-build Mini_Project.exe: CXX_EXECUTABLE_LINKER__Mini_Project_Debug CMakeFiles\Mini_Project.dir\main.cpp.obj CMakeFiles\Mini_Project.dir\CMax3SatProblem.cpp.obj
+build Mini_Project.exe: CXX_EXECUTABLE_LINKER__Mini_Project_Debug CMakeFiles\Mini_Project.dir\main.cpp.obj CMakeFiles\Mini_Project.dir\CMax3SatProblem.cpp.obj CMakeFiles\Mini_Project.dir\CGAOptimizer.cpp.obj CMakeFiles\Mini_Project.dir\CGAIndividual.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:X86 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

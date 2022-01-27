@@ -10,7 +10,7 @@
 
 class Problem {
 public:
-    virtual void Load(const std::string& address) = 0;
+    virtual bool Load(const std::string& address) = 0;
     virtual double Compute(std::vector<bool> solution) = 0;
     virtual int size() = 0;
 };

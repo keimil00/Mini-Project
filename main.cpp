@@ -2,31 +2,28 @@
 #include "CMax3SatProblem.h"
 #include "CGAOptimizer.h"
 
+#define ITERATIONS_NUMBER 200
+#define POPULATION_SIZE 200
+#define PROBABILITY_OF_CROSSING 0.5
+#define PROBABILITY_OF_MUTATION 0.3
 
-int main() {
-    CMax3SatProblem *testObject = new CMax3SatProblem();
-    std::string file_address = "C://Users//keimi//CLionProjects//Mini_Project//m3s_350_45.txt";
-    testObject->Load(file_address);
-    testObject->print_clauses();
-    testObject->print_variables();
-    std::vector<bool> test_solution;
-    for (int i = 0; i < 50; ++i) {
-        if(i%2 == 0){
-            test_solution.push_back(true);
-        }else{
-            test_solution.push_back(false);
+
+int main(int argc, char** argv) {
+    auto *testObject = new CMax3SatProblem();
+    std::string file_address = argv[1];
+    if(testObject->Load(file_address)) {
+        auto *test_optimizer = new CGAOptimizer(POPULATION_SIZE, PROBABILITY_OF_CROSSING,PROBABILITY_OF_MUTATION, testObject);
+        test_optimizer->Initialize();
+
+        for (int i = 0; i < ITERATIONS_NUMBER; ++i) {
+            test_optimizer->RunIteration();
         }
-    }
-    std::cout << testObject->Compute(test_solution);
 
-    auto *test_optimizer = new CGAOptimizer<CMax3SatProblem>(1000, 0.75, 0.2, testObject);
-    test_optimizer->Initialize();
-    for (int i = 0; i < 100; ++i) {
-        test_optimizer->RunIteration();
+        delete testObject;
+        delete test_optimizer;
+    }else{
+        std::cout<<"Wrong name or file structure.";
     }
-
-    delete testObject;
-    delete test_optimizer;
 
     return 0;
 }

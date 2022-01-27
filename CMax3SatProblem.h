@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include <iostream>
 #include <tuple>
@@ -18,7 +19,7 @@
 
 class CMax3SatProblem: public virtual Problem {
 public:
-    void Load(const std::string& address) override;
+    bool Load(const std::string& address) override;
     double Compute(std::vector<bool> solution) override;
     void print_clauses();
     void print_variables();

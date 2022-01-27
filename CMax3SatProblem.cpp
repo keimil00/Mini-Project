@@ -41,20 +41,56 @@ void CMax3SatProblem::retrieve_variables() {
     variables.assign(vars.begin(), vars.end());
 }
 
-void CMax3SatProblem::Load(const std::string& address) {
+bool CMax3SatProblem::Load(const std::string& address) {
     std::ifstream source_file;
     source_file.open(address);
+    if(!source_file.is_open()){ return false; }
 
     int first, second, third;
-    char bracket;
 
-    while(source_file){
-        source_file >> bracket >> first >> second >> third >> bracket;
+    std::string line;
+    std::stringstream ss;
+    std::string temp;
+
+    while(!source_file.eof()){
+        getline(source_file, line);
+        if(line.empty()) {
+            source_file.close();
+            retrieve_variables();
+            return true;
+        }
+        line.erase(std::remove(line.begin(), line.end(), '('), line.end());
+        line.erase(std::remove(line.begin(), line.end(), ')'), line.end());
+
+        ss << line;
+
+        if(!ss.eof()){ ss >> temp; }
+        else {
+            return false; }
+
+        if(!(std::istringstream(temp) >> first)){
+            return false; }
+
+        if(!ss.eof()){ ss >> temp; }
+        else {
+            return false; }
+
+        if(!(std::istringstream(temp) >> second)){
+            return false; }
+        if(!ss.eof()){ ss >> temp; }
+
+        else {
+            return false; }
+        if(!(std::istringstream(temp) >> third)){
+            return false; }
+
+        ss.str(std::string());
         clauses.emplace_back(first, second, third);
     }
 
     source_file.close();
     retrieve_variables();
+    return true;
 }
 
 void CMax3SatProblem::print_clauses() {
