@@ -14,8 +14,8 @@ CGAOptimizer::CGAOptimizer(int newSize_of_population, double newProbability_of_c
 }
 
 CGAOptimizer::~CGAOptimizer() {
-    for (int i = 0; i < individuals.size(); ++i) {
-        delete individuals[i];
+    for (auto & individual : individuals) {
+        delete individual;
     }
 }
 
@@ -75,8 +75,8 @@ void CGAOptimizer::RunIteration() {
 
 
     std::cout<<"\n\n";
-    for (int i = 0; i < individuals.size(); ++i) {
-        delete individuals[i];
+    for (auto & individual : individuals) {
+        delete individual;
     }
     individuals = new_population;
     std::cout<<"Average: "<<averageFitness()<<" Max: "<<maxFitness();
@@ -86,8 +86,8 @@ void CGAOptimizer::RunIteration() {
 
 double CGAOptimizer::averageFitness() {
     double average = 0;
-    for (int i = 0; i < individuals.size(); ++i) {
-        average += individuals[i]->getFitnessValue();
+    for (auto & individual : individuals) {
+        average += individual->getFitnessValue();
     }
     average /= size_of_population;
     return average;
@@ -95,9 +95,9 @@ double CGAOptimizer::averageFitness() {
 
 double CGAOptimizer::maxFitness() {
     double max = 0;
-    for (int i = 0; i < individuals.size(); ++i) {
-        if(max < individuals[i]->getFitnessValue())
-            max = individuals[i]->getFitnessValue();
+    for (auto & individual : individuals) {
+        if(max < individual->getFitnessValue())
+            max = individual->getFitnessValue();
     }
     return max;
 }

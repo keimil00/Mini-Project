@@ -7,3 +7,12 @@
 19	694	6650087850397772	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	7f364317a424090f
 0	866	6650087852148145	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	88b0b88b7f17779
 866	1040	6650087853878546	Mini_Project.exe	eb237b64a90cdc27
+32	853	6691675158211331	CMakeFiles/Mini_Project.dir/main.cpp.obj	e7f549fcc7ec8ae8
+50	884	6691675158531406	CMakeFiles/Mini_Project.dir/CGAOptimizer.cpp.obj	fb403cbd0719212e
+41	898	6691675158671442	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	7f364317a424090f
+1	1063	6691675160321785	CMakeFiles/Mini_Project.dir/CMax3SatProblem.cpp.obj	88b0b88b7f17779
+1064	1330	6691675162924826	Mini_Project.exe	eb237b64a90cdc27
+1	672	6691679320069789	CMakeFiles/Mini_Project.dir/main.cpp.obj	e7f549fcc7ec8ae8
+672	847	6691679321790183	Mini_Project.exe	eb237b64a90cdc27
+0	522	6691682967743740	CMakeFiles/Mini_Project.dir/CGAIndividual.cpp.obj	7f364317a424090f
+523	668	6691682969184062	Mini_Project.exe	eb237b64a90cdc27

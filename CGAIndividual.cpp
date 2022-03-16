@@ -20,18 +20,16 @@ CGAIndividual::CGAIndividual(int size, Problem *new_problem) {
 
 CGAIndividual::CGAIndividual(std::vector<bool> genes, Problem *new_problem) {
     genotype = std::move(genes);
+    genotype_length = (int) genotype.size();
     problem = new_problem;
     Fitness();
 }
 
 int CGAIndividual::random(int min, int max) {
-    static bool first = true;
-    if (first)
-    {
-        srand( time(nullptr) ); //seeding for the first time only!
-        first = false;
-    }
-    return min + rand() % (( max + 1 ) - min);
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(min, max );
+    return  dist(mt);
 }
 
 CGAIndividual* CGAIndividual::Crossover(CGAIndividual const *mate, double probability_of_crossing) {
@@ -67,7 +65,7 @@ CGAIndividual *pickParent(std::vector<CGAIndividual *> const &population, int to
 double best_result = 0;
 int best_candidate_index;
 for (int i = 0; i < tournamentSize; ++i) {
-int r = CGAIndividual::random(0, population.size() - 1);
+int r = CGAIndividual::random(0, (int) population.size() - 1);
 if(population[r]->fitness > best_result){
 best_result = population[r]->fitness;
 best_candidate_index = r;

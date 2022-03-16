@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <ctime>
+#include <random>
 #include <vector>
 #include "CGAOptimizer.h"
 #include "Problem.h"

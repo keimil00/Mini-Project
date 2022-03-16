@@ -102,6 +102,6 @@ void CMax3SatProblem::print_variables() {
 }
 
 int CMax3SatProblem::size() {
-    return variables.size();
+    return (int) variables.size();
 }
 
