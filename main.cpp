@@ -9,14 +9,16 @@
 #define TOURNAMENT_SIZE 2
 
 
-
 int main(int argc, char** argv) {
     if(argc < 1) {std:: cout<<"Provide file name.";}
     else {
         auto *testObject = new CMax3SatProblem();
         std::string file_address = argv[1];
         if (testObject->Load(file_address)) {
-            auto *test_optimizer = new CGAOptimizer(POPULATION_SIZE, PROBABILITY_OF_CROSSING, PROBABILITY_OF_MUTATION, TOURNAMENT_SIZE,
+            auto *test_optimizer = new CGAOptimizer(POPULATION_SIZE,
+                                                    PROBABILITY_OF_CROSSING,
+                                                    PROBABILITY_OF_MUTATION,
+                                                    TOURNAMENT_SIZE,
                                                     testObject);
             test_optimizer->Initialize();
 
@@ -30,6 +32,7 @@ int main(int argc, char** argv) {
             std::cout << "Wrong name or file structure.";
         }
     }
+
 
     return 0;
 }

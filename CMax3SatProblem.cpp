@@ -65,24 +65,18 @@ bool CMax3SatProblem::Load(const std::string& address) {
         ss << line;
 
         if(!ss.eof()){ ss >> temp; }
-        else {
-            return false; }
+        else { return false; }
 
-        if(!(std::istringstream(temp) >> first)){
-            return false; }
+        if(!(std::istringstream(temp) >> first)){ return false; }
 
         if(!ss.eof()){ ss >> temp; }
-        else {
-            return false; }
+        else { return false; }
 
-        if(!(std::istringstream(temp) >> second)){
-            return false; }
+        if(!(std::istringstream(temp) >> second)){ return false; }
         if(!ss.eof()){ ss >> temp; }
 
-        else {
-            return false; }
-        if(!(std::istringstream(temp) >> third)){
-            return false; }
+        else { return false; }
+        if(!(std::istringstream(temp) >> third)){ return false; }
 
         ss.str(std::string());
         clauses.emplace_back(first, second, third);
